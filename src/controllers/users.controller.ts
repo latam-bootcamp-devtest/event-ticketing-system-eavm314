@@ -38,7 +38,11 @@ export const getBookingHistory = async (req: Request, res: Response) => {
       events: formattedBookings,
     });
   } catch (err: any) {
-    console.error(err);
-    res.status(500).json({ message: 'Error fetching Booking history', err });
+    if (err.name === "HttpException") {
+      res.status(err.code).json({ message: err.message })
+    } else {
+      console.error(err);
+      res.status(500).json({ message: 'Error booking ticket' });
+    }
   }
 }

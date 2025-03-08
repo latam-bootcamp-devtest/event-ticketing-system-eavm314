@@ -1,5 +1,5 @@
 import express from "express"
-import eventRouter from "./routes/event.routes";
+import eventRouter from "./routes/events.routes";
 import ticketsRouter from "./routes/tickets.routes"
 import usersRouter from './routes/users.routes'
 
