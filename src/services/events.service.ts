@@ -11,8 +11,16 @@ export class EventService {
 
   async getEvents(page: number, pageSize: number) {
     const eventsPromise = prisma.event.findMany({
+      where: {
+        date: {
+          gte: new Date()
+        }
+      },
       take: pageSize,
       skip: (page-1)*pageSize,
+      orderBy: {
+        date: 'asc'
+      }
     });
 
     const totalPromise = prisma.event.count();
