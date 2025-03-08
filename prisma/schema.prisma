@@ -14,10 +14,12 @@ datasource db {
 }
 
 model User {
-  id              Int    @id @default(autoincrement())
-  email           String @unique
-  name            String
-  role            String
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  name  String
+  role  String
+
+  Ticket Ticket[]
 }
 
 model Event {
@@ -25,4 +27,15 @@ model Event {
   name           String
   date           DateTime
   availableSeats Int
+
+  Ticket Ticket[]
+}
+
+model Ticket {
+  id      Int @id @default(autoincrement())
+  userId  Int
+  eventId Int
+
+  user  User  @relation(fields: [userId], references: [id])
+  event Event @relation(fields: [eventId], references: [id])
 }
