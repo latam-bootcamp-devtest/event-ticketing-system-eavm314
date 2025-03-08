@@ -9,7 +9,7 @@ export const getBookingHistory = async (req: Request, res: Response) => {
     const page = Number(req.query.page) || 1;
     const pageSize = Number(req.query.pageSize) || 10;
     const startDate = new Date(req.query.startDate as string);
-    const endDate = new Date(req.query.endDate as string);
+    const endDate = req.query.endDate ? new Date(req.query.endDate as string) : new Date();
     const sort = req.query.sort as ('asc' | 'desc') || 'desc';
     const search = req.query.search as string;
 

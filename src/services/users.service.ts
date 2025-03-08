@@ -4,7 +4,8 @@ export class UserService {
   async getBookingHistory(
     userId: number,
     page: number, pageSize: number,
-    startDate: Date, endDate: Date,
+    startDate: Date, 
+    endDate: Date,
     sort: 'asc' | 'desc',
     search?: string
   ) {
