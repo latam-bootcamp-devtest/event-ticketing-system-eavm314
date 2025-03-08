@@ -19,7 +19,7 @@ model User {
   name  String
   role  String
 
-  Ticket Ticket[]
+  tickets Ticket[]
 }
 
 model Event {
@@ -28,7 +28,7 @@ model Event {
   date           DateTime
   availableSeats Int
 
-  Ticket Ticket[]
+  tickets Ticket[]
 }
 
 model Ticket {
