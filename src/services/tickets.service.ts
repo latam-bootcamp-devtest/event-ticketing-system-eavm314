@@ -22,4 +22,21 @@ export class TicketService {
       }
     });
   }
+
+  async cancelBooking(ticketId: number) {
+    const ticket = await prisma.ticket.findUnique({
+      where: { id: ticketId },
+      include: { event: true }
+    });
+    if (!ticket) throw new HttpException(404, "Ticket not found");
+    if (ticket.event.date < new Date())
+      throw new HttpException(400, "Cannot cancel past events");
+
+    await prisma.event.update({
+      where: { id: ticket.event.id },
+      data: { availableSeats: ticket.event.availableSeats + 1 }
+    });
+
+    await prisma.ticket.delete({ where: { id: ticketId } });
+  }
 }
