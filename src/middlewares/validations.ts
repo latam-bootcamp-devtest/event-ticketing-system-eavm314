@@ -8,7 +8,7 @@ const validationResponse = (req: Request, res: Response, next: NextFunction) => 
   } else {
     res.status(400).json({
       message: 'Error validating data',
-      errors: result,
+      errors: result.array(),
     })
   }
 }
