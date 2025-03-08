@@ -8,4 +8,19 @@ export class EventService {
       date: new Date(event.date).toISOString(),
     } });
   }
+
+  async getEvents(page: number, pageSize: number) {
+    const eventsPromise = prisma.event.findMany({
+      take: pageSize,
+      skip: (page-1)*pageSize,
+    });
+
+    const totalPromise = prisma.event.count();
+    const [events, total] = await Promise.all([eventsPromise, totalPromise]);
+    return {
+      events,
+      total,
+      totalPages: Math.ceil(total/pageSize),
+    }
+  }
 }
