@@ -8,6 +8,8 @@ export class TicketService {
 
     const event = await prisma.event.findUnique({ where: { id: eventId } });
     if (!event) throw new HttpException(404, "Event not found");
+    if (event.date < new Date())
+      throw new HttpException(400, "Cannot book past events");
     if (event.availableSeats <= 0) throw new HttpException(409, "Not available seats");
 
     await prisma.event.update({
